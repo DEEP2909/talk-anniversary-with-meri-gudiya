@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Heart, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const PhotoGallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    // Play audio when component mounts
+    if (audioRef.current) {
+      audioRef.current.play().catch(error => {
+        console.log('Audio autoplay failed:', error);
+      });
+    }
+  }, []);
 
   const photos = [
     {
@@ -180,6 +190,17 @@ const PhotoGallery = () => {
           </div>
         </div>
       )}
+
+      {/* Background Audio */}
+      <audio 
+        ref={audioRef} 
+        loop 
+        preload="auto"
+        className="hidden"
+      >
+        <source src="/lovable-uploads/celebration-audio.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
     </div>
   );
 };
