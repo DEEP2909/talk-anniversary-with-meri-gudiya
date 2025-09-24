@@ -10,7 +10,8 @@ const CountdownTimer = ({ onTimerEnd }: CountdownTimerProps) => {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    const targetDate = new Date('2025-09-25T00:00:00').getTime();
+    // For testing - set to a few seconds from now
+    const targetDate = new Date(Date.now() + 10000).getTime(); // 10 seconds from now
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
